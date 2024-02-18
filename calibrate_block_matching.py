@@ -3,14 +3,16 @@ import cv2
  
 # Check for left and right camera IDs
 # These values can change depending on the system
-CamL_id = 4 # Camera ID for left camera
-CamR_id = 2 # Camera ID for right camera
+CamL_id = 2 # Camera ID for left camera
+CamR_id = 4 # Camera ID for right camera
+
+output_file_name = "calibrated_params"
  
 CamL= cv2.VideoCapture(CamL_id)
 CamR= cv2.VideoCapture(CamR_id)
  
 # Reading the mapping values for stereo image rectification
-cv_file = cv2.FileStorage("improved_params2.xml", cv2.FILE_STORAGE_READ)
+cv_file = cv2.FileStorage(f"{output_file_name}.xml", cv2.FILE_STORAGE_READ)
 Left_Stereo_Map_x = cv_file.getNode("Left_Stereo_Map_x").mat()
 Left_Stereo_Map_y = cv_file.getNode("Left_Stereo_Map_y").mat()
 Right_Stereo_Map_x = cv_file.getNode("Right_Stereo_Map_x").mat()
@@ -21,7 +23,7 @@ def nothing(x):
     pass
  
 cv2.namedWindow('disp',cv2.WINDOW_NORMAL)
-cv2.resizeWindow('disp',600,600)
+cv2.resizeWindow('disp',1200,1200)
  
 cv2.createTrackbar('numDisparities','disp',1,17,nothing)
 cv2.createTrackbar('blockSize','disp',5,50,nothing)
