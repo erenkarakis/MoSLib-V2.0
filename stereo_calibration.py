@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 from tqdm import tqdm
 
+output_file_name = "calibrated_params"
+
 grid_size = {'width': 14, 'height': 9}
 
 # Set the path to the images captured by the left and right cameras
@@ -35,8 +37,8 @@ for i in tqdm(range(0,27)):
     obj_pts.append(objp)
     cv2.cornerSubPix(imgR_gray,cornersR,(11,11),(-1,-1),criteria)
     cv2.cornerSubPix(imgL_gray,cornersL,(11,11),(-1,-1),criteria)
-    cv2.drawChessboardCorners(outputR,(9,6),cornersR,retR)
-    cv2.drawChessboardCorners(outputL,(9,6),cornersL,retL)
+    cv2.drawChessboardCorners(outputR,(grid_size['width'],grid_size['height']),cornersR,retR)
+    cv2.drawChessboardCorners(outputL,(grid_size['width'],grid_size['height']),cornersL,retL)
     cv2.imshow('cornersR',outputR)
     cv2.imshow('cornersL',outputL)
     cv2.waitKey(0)
@@ -84,7 +86,7 @@ Right_Stereo_Map= cv2.initUndistortRectifyMap(new_mtxR, distR, rect_r, proj_mat_
                                               imgR_gray.shape[::-1], cv2.CV_16SC2)
  
 print("Saving paraeters ......")
-cv_file = cv2.FileStorage("improved_params2.xml", cv2.FILE_STORAGE_WRITE)
+cv_file = cv2.FileStorage(f"{output_file_name}.xml", cv2.FILE_STORAGE_WRITE)
 cv_file.write("Left_Stereo_Map_x",Left_Stereo_Map[0])
 cv_file.write("Left_Stereo_Map_y",Left_Stereo_Map[1])
 cv_file.write("Right_Stereo_Map_x",Right_Stereo_Map[0])
