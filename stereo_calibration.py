@@ -21,7 +21,7 @@ img_ptsL = []
 img_ptsR = []
 obj_pts = []
  
-for i in tqdm(range(0,27)):
+for i in tqdm(range(0,45)):
   imgL = cv2.imread(pathL+"image%d.png"%i)
   imgR = cv2.imread(pathR+"image%d.png"%i)
   imgL_gray = cv2.imread(pathL+"image%d.png"%i,0)

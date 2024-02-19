@@ -1,2 +1,11 @@
-numDisparities: 31
-blockSize: 62
+numDisparities: 7
+blockSize: 10
+preFilterType: 1
+preFilterSize: 1
+preFilterCap: 15 
+textureThreshold: 0
+uniquenessRatio: 20
+speckleRange: 10
+speckleWindowSize: 37
+disp12MaxDiff: 19
+minDisparity: 22

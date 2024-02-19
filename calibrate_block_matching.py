@@ -3,8 +3,8 @@ import cv2
  
 # Check for left and right camera IDs
 # These values can change depending on the system
-CamL_id = 2 # Camera ID for left camera
-CamR_id = 4 # Camera ID for right camera
+CamL_id = 4 # Camera ID for left camera
+CamR_id = 2 # Camera ID for right camera
 
 calib_file_name = "calibrated_params"
  
@@ -23,7 +23,7 @@ def nothing(x):
     pass
  
 cv2.namedWindow('disp',cv2.WINDOW_NORMAL)
-cv2.resizeWindow('disp',1000,1000)
+cv2.resizeWindow('disp',600,600)
  
 cv2.createTrackbar('numDisparities','disp',1,17,nothing)
 cv2.createTrackbar('blockSize','disp',5,50,nothing)
@@ -33,7 +33,7 @@ cv2.createTrackbar('preFilterCap','disp',5,62,nothing)
 cv2.createTrackbar('textureThreshold','disp',10,100,nothing)
 cv2.createTrackbar('uniquenessRatio','disp',15,100,nothing)
 cv2.createTrackbar('speckleRange','disp',0,100,nothing)
-cv2.createTrackbar('speckleWindowSize','disp',3,25,nothing)
+cv2.createTrackbar('speckleWindowSize','disp',3,300,nothing)
 cv2.createTrackbar('disp12MaxDiff','disp',5,25,nothing)
 cv2.createTrackbar('minDisparity','disp',5,25,nothing)
  
@@ -94,7 +94,7 @@ while True:
     stereo.setMinDisparity(minDisparity)
  
     # Calculating disparity using the StereoBM algorithm
-    disparity = stereo.compute(Left_nice,Right_nice)
+    disparity = stereo.compute(imgL_gray,imgR_gray)
     # NOTE: Code returns a 16bit signed single channel image,
     # CV_16S containing a disparity map scaled by 16. Hence it 
     # is essential to convert it to CV_32F and scale it down 16 times.
