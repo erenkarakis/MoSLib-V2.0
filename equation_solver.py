@@ -2,6 +2,8 @@ import numpy as np
 import cv2
 import yaml
 
+disps_at_locations = []
+
 def mouse_on_click(event,x,y,flags,param):
   global on_click_x, on_click_y, distance_in_cm, disparity_frame
   if event == cv2.EVENT_LBUTTONDOWN:
@@ -11,6 +13,7 @@ def mouse_on_click(event,x,y,flags,param):
 
     # Get the disparity at clicked location
     disparity_at_location = disparity_frame[on_click_x, on_click_y]
+    disps_at_locations.append = disparity_at_location
     print(on_click_x, on_click_y)
     print(disparity_at_location)
 
