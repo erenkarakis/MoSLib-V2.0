@@ -7,14 +7,14 @@ import yaml
 
 # Check for left and right camera IDs
 # These values can change depending on the system
-CamL_id = 2 # Camera ID for left camera
-CamR_id = 0 # Camera ID for right camera
+CamL_id = 0 # Camera ID for left camera
+CamR_id = 2 # Camera ID for right camera
 
 CamL= cv2.VideoCapture(CamL_id)
 CamR= cv2.VideoCapture(CamR_id)
 
 # Reading the mapping values for stereo image rectification
-cv_file = cv2.FileStorage("../data/stereo_rectify_maps.xml", cv2.FILE_STORAGE_READ)
+cv_file = cv2.FileStorage("calibrated_params.xml", cv2.FILE_STORAGE_READ)
 Left_Stereo_Map_x = cv_file.getNode("Left_Stereo_Map_x").mat()
 Left_Stereo_Map_y = cv_file.getNode("Left_Stereo_Map_y").mat()
 Right_Stereo_Map_x = cv_file.getNode("Right_Stereo_Map_x").mat()
@@ -24,9 +24,9 @@ cv_file.release()
 # These parameters can vary according to the setup
 # Keeping the target object at max_dist we store disparity values
 # after every sample_delta distance.
-max_dist = 230 # max distance to keep the target object (in cm)
-min_dist = 50 # Minimum distance the stereo setup can measure (in cm)
-sample_delta = 40 # Distance between two sampling points (in cm)
+max_dist = 300 # max distance to keep the target object (in cm)
+min_dist = 100 # Minimum distance the stereo setup can measure (in cm)
+sample_delta = 50 # Distance between two sampling points (in cm)
 
 Z = max_dist 
 Value_pairs = []
