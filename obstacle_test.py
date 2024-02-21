@@ -1,18 +1,19 @@
 import numpy as np 
 import cv2
+import yaml
 
 
 # Check for left and right camera IDs
 # These values can change depending on the system
-CamL_id = 2 # Camera ID for left camera
-CamR_id = 0 # Camera ID for right camera
+CamL_id = 0 # Camera ID for left camera
+CamR_id = 2 # Camera ID for right camera
 
 
 CamL= cv2.VideoCapture(CamL_id)
 CamR= cv2.VideoCapture(CamR_id)
 
 # Reading the mapping values for stereo image rectification
-cv_file = cv2.FileStorage("../data/stereo_rectify_maps.xml", cv2.FILE_STORAGE_READ)
+cv_file = cv2.FileStorage("calibrated_params.xml", cv2.FILE_STORAGE_READ)
 Left_Stereo_Map_x = cv_file.getNode("Left_Stereo_Map_x").mat()
 Left_Stereo_Map_y = cv_file.getNode("Left_Stereo_Map_y").mat()
 Right_Stereo_Map_x = cv_file.getNode("Right_Stereo_Map_x").mat()
@@ -23,25 +24,26 @@ disparity = None
 depth_map = None
 
 # These parameters can vary according to the setup
-max_depth = 400 # maximum distance the setup can measure (in cm)
-min_depth = 50 # minimum distance the setup can measure (in cm)
-depth_thresh = 100.0 # Threshold for SAFE distance (in cm)
+max_depth = 300 # maximum distance the setup can measure (in cm)
+min_depth = 100 # minimum distance the setup can measure (in cm)
+depth_thresh = 50 # Threshold for SAFE distance (in cm)
 
 # Reading the stored the StereoBM parameters
-cv_file = cv2.FileStorage("../data/depth_estmation_params_py.xml", cv2.FILE_STORAGE_READ)
-numDisparities = int(cv_file.getNode("numDisparities").real())
-blockSize = int(cv_file.getNode("blockSize").real())
-preFilterType = int(cv_file.getNode("preFilterType").real())
-preFilterSize = int(cv_file.getNode("preFilterSize").real())
-preFilterCap = int(cv_file.getNode("preFilterCap").real())
-textureThreshold = int(cv_file.getNode("textureThreshold").real())
-uniquenessRatio = int(cv_file.getNode("uniquenessRatio").real())
-speckleRange = int(cv_file.getNode("speckleRange").real())
-speckleWindowSize = int(cv_file.getNode("speckleWindowSize").real())
-disp12MaxDiff = int(cv_file.getNode("disp12MaxDiff").real())
-minDisparity = int(cv_file.getNode("minDisparity").real())
-M = cv_file.getNode("M").real()
-cv_file.release()
+with open('block_matching_calibration.yaml', 'r') as f:
+    block_matching_calibration = yaml.safe_load(f)
+
+numDisparities = block_matching_calibration['numDisparities'] * 16
+blockSize = (block_matching_calibration['blockSize'] * 2) + 5
+preFilterType = block_matching_calibration['preFilterType']
+preFilterSize = (block_matching_calibration['preFilterSize'] * 2) + 5
+preFilterCap = block_matching_calibration['preFilterCap']
+textureThreshold = block_matching_calibration['textureThreshold']
+uniquenessRatio = block_matching_calibration['uniquenessRatio']
+speckleRange = block_matching_calibration['speckleRange']
+speckleWindowSize = block_matching_calibration['speckleWindowSize'] * 2
+disp12MaxDiff = block_matching_calibration['disp12MaxDiff']
+minDisparity = block_matching_calibration['minDisparity']
+M = 32.075727470615085
 
 # mouse callback function
 def mouse_click(event,x,y,flags,param):

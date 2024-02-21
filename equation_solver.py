@@ -19,7 +19,7 @@ def mouse_on_click(event,x,y,flags,param):
 
 # Check for left and right camera IDs
 # These values can change depending on the system
-CamL_id = 4 # Camera ID for left camera
+CamL_id = 0 # Camera ID for left camera
 CamR_id = 2 # Camera ID for right camera
  
 CamL= cv2.VideoCapture(CamL_id)
