@@ -6,7 +6,7 @@ import yaml
 # Check for left and right camera IDs
 # These values can change depending on the system
 CamL_id = 2 # Camera ID for left camera
-CamR_id = 0 # Camera ID for right camera
+CamR_id = 4 # Camera ID for right camera
 
 
 CamL= cv2.VideoCapture(CamL_id)
@@ -26,7 +26,7 @@ depth_map = None
 # These parameters can vary according to the setup
 max_depth = 300 # maximum distance the setup can measure (in cm)
 min_depth = 50 # minimum distance the setup can measure (in cm)
-depth_thresh = 100 # Threshold for SAFE distance (in cm)
+depth_thresh = 10 # Threshold for SAFE distance (in cm)
 
 # Reading the stored the StereoBM parameters
 with open('block_matching_calibration.yaml', 'r') as f:
@@ -43,12 +43,14 @@ speckleRange = block_matching_calibration['speckleRange']
 speckleWindowSize = block_matching_calibration['speckleWindowSize'] * 2
 disp12MaxDiff = block_matching_calibration['disp12MaxDiff']
 minDisparity = block_matching_calibration['minDisparity']
-M = 12.848176985839391
+# M = 13.521392575581196
+M = 12.414951536328767
 
 # mouse callback function
 def mouse_click(event,x,y,flags,param):
-	global Z
+	global Z, disparity
 	if event == cv2.EVENT_LBUTTONDBLCLK:
+		print(f"Disparity = {disparity[y, x]}")
 		print("Distance = %.2f cm"%depth_map[y,x])	
 
 
@@ -150,13 +152,15 @@ while True:
 		
 		depth_map = M/(disparity) # for depth in (cm)
 
-		mask_temp = cv2.inRange(depth_map,min_depth,max_depth)
-		depth_map = cv2.bitwise_and(depth_map,depth_map,mask=mask_temp)
+		#mask_temp = cv2.inRange(depth_map,min_depth,max_depth)
+		#depth_map = cv2.bitwise_and(depth_map,depth_map,mask=mask_temp)
 
-		obstacle_avoid()
+		#obstacle_avoid()
 		
-		cv2.resizeWindow("disp",700,700)
+		cv2.resizeWindow("disp",600,600)
+		cv2.imshow("depth", depth_map)
 		cv2.imshow("disp",disparity)
+		cv2.imshow('output_canvas',output_canvas)
 
 		if cv2.waitKey(1) == 27:
 			break
