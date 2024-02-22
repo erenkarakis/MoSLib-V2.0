@@ -5,8 +5,8 @@ import yaml
 
 # Check for left and right camera IDs
 # These values can change depending on the system
-CamL_id = 0 # Camera ID for left camera
-CamR_id = 2 # Camera ID for right camera
+CamL_id = 2 # Camera ID for left camera
+CamR_id = 0 # Camera ID for right camera
 
 
 CamL= cv2.VideoCapture(CamL_id)
@@ -25,8 +25,8 @@ depth_map = None
 
 # These parameters can vary according to the setup
 max_depth = 300 # maximum distance the setup can measure (in cm)
-min_depth = 100 # minimum distance the setup can measure (in cm)
-depth_thresh = 50 # Threshold for SAFE distance (in cm)
+min_depth = 50 # minimum distance the setup can measure (in cm)
+depth_thresh = 100 # Threshold for SAFE distance (in cm)
 
 # Reading the stored the StereoBM parameters
 with open('block_matching_calibration.yaml', 'r') as f:
@@ -43,7 +43,7 @@ speckleRange = block_matching_calibration['speckleRange']
 speckleWindowSize = block_matching_calibration['speckleWindowSize'] * 2
 disp12MaxDiff = block_matching_calibration['disp12MaxDiff']
 minDisparity = block_matching_calibration['minDisparity']
-M = 32.075727470615085
+M = 12.848176985839391
 
 # mouse callback function
 def mouse_click(event,x,y,flags,param):

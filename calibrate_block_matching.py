@@ -33,7 +33,7 @@ cv2.createTrackbar('preFilterCap','disp',5,62,nothing)
 cv2.createTrackbar('textureThreshold','disp',10,100,nothing)
 cv2.createTrackbar('uniquenessRatio','disp',15,100,nothing)
 cv2.createTrackbar('speckleRange','disp',0,100,nothing)
-cv2.createTrackbar('speckleWindowSize','disp',3,300,nothing)
+cv2.createTrackbar('speckleWindowSize','disp',3,60,nothing)
 cv2.createTrackbar('disp12MaxDiff','disp',5,25,nothing)
 cv2.createTrackbar('minDisparity','disp',5,25,nothing)
  

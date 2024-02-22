@@ -4,7 +4,7 @@ from tqdm import tqdm
 
 output_file_name = "calibrated_params"
 
-grid_size = {'width': 14, 'height': 9}
+grid_size = {'width': 9, 'height': 6}
 
 # Set the path to the images captured by the left and right cameras
 pathL = "imagesL/"

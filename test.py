@@ -7,8 +7,8 @@ import yaml
 
 # Check for left and right camera IDs
 # These values can change depending on the system
-CamL_id = 0 # Camera ID for left camera
-CamR_id = 2 # Camera ID for right camera
+CamL_id = 2 # Camera ID for left camera
+CamR_id = 0 # Camera ID for right camera
 
 CamL= cv2.VideoCapture(CamL_id)
 CamR= cv2.VideoCapture(CamR_id)
@@ -26,7 +26,7 @@ cv_file.release()
 # after every sample_delta distance.
 max_dist = 300 # max distance to keep the target object (in cm)
 min_dist = 100 # Minimum distance the stereo setup can measure (in cm)
-sample_delta = 50 # Distance between two sampling points (in cm)
+sample_delta = 20 # Distance between two sampling points (in cm)
 
 Z = max_dist 
 Value_pairs = []
