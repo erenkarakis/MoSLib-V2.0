@@ -31,13 +31,13 @@ lin_reg.intercept_, lin_reg.coef_ # check the bais term and feature weights of t
 X_new = np.sort(X,axis = 0) # in order to plot the line of the model, we need to sort the the value of x-axis
 X_new_ploy = poly_features.fit_transform(X_new) # compute the polynomial features 
 print(X_new_ploy)
-y_predict = lin_reg.predict([[1,0.3,0.3**2]]) # make predictions using trained Linear Regression model
+y_predict = lin_reg.predict([[1,0.065,0.065**2]]) # make predictions using trained Linear Regression model
+y_predict = lin_reg.predict(X_new_ploy)
 print(y_predict)
 # plot the original dataset and the prediction results
 fig,ax = plt.subplots()
-#ax.plot(X,y,'b.', label = 'Training date samples')
+ax.plot(X,y,'b.', label = 'Training date samples')
 ax.plot(X_new,y_predict,'g-',linewidth=2, label = 'Predictions')
-
 ax.set_xlabel('X')
 ax.set_ylabel('y')
 ax.legend()
