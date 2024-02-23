@@ -4,6 +4,12 @@ import yaml
 
 #FUCKTHEMRE
 
+disp_path = "disp_values"
+disp_count = 0
+
+def writeDisp(disp):
+	disp_file.write(f"{disp_count}",disp)
+
 
 # Check for left and right camera IDs
 # These values can change depending on the system
@@ -48,12 +54,17 @@ minDisparity = block_matching_calibration['minDisparity']
 # M = 13.521392575581196
 M = 12.414951536328767
 
+
+disp_file = cv2.FileStorage(f"{disp_path}.xml", cv2.FILE_STORAGE_WRITE)
+
 # mouse callback function
 def mouse_click(event,x,y,flags,param):
 	global Z, disparity
 	if event == cv2.EVENT_LBUTTONDBLCLK:
 		print(f"Disparity = {disparity[y, x]}")
 		print("Distance = %.2f cm"%depth_map[y,x])	
+		writeDisp(disp=disparity)
+		disp_count =+ 1
 
 
 cv2.namedWindow('disp',cv2.WINDOW_NORMAL)
@@ -165,6 +176,7 @@ while True:
 		cv2.imshow('output_canvas',output_canvas)
 
 		if cv2.waitKey(1) == 27:
+			disp_file.release()
 			break
 	
 	else:
