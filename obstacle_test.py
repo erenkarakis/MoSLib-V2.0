@@ -5,10 +5,10 @@ import yaml
 #FUCKTHEMRE
 
 disp_path = "disp_values"
-disp_count = 0
+global disp_count
 
-def writeDisp(disp):
-	disp_file.write(f"{disp_count}",disp)
+def writeDisp(disp, count = 0):
+	disp_file.write(f"{count}",disp)
 
 
 # Check for left and right camera IDs
@@ -63,7 +63,7 @@ def mouse_click(event,x,y,flags,param):
 	if event == cv2.EVENT_LBUTTONDBLCLK:
 		print(f"Disparity = {disparity[y, x]}")
 		print("Distance = %.2f cm"%depth_map[y,x])	
-		writeDisp(disp=disparity)
+		writeDisp(disp=disparity, count= disp_count)
 		disp_count =+ 1
 
 
