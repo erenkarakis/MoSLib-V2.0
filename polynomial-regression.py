@@ -32,7 +32,7 @@ X_new = np.sort(X,axis = 0) # in order to plot the line of the model, we need to
 X_new_ploy = poly_features.fit_transform(X_new) # compute the polynomial features 
 print(X_new_ploy)
 y_predict = lin_reg.predict([[1,0.065,0.065**2]]) # make predictions using trained Linear Regression model
-y_predict = lin_reg.predict(X_new_ploy)
+# y_predict = lin_reg.predict(X_new_ploy)
 print(y_predict)
 # plot the original dataset and the prediction results
 fig,ax = plt.subplots()
