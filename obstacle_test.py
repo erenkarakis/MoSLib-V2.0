@@ -52,8 +52,8 @@ speckleRange = block_matching_calibration['speckleRange']
 speckleWindowSize = block_matching_calibration['speckleWindowSize'] * 2
 disp12MaxDiff = block_matching_calibration['disp12MaxDiff']
 minDisparity = block_matching_calibration['minDisparity']
-# M = 13.521392575581196
-M = 12.414951536328767
+M = 13.521392575581196
+# M = 12.414951536328767
 
 
 disp_file = cv2.FileStorage(f"{disp_path}.xml", cv2.FILE_STORAGE_WRITE)
